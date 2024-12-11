@@ -12,7 +12,7 @@ const is = val => val !== null && val !== undefined;
 
 const createValidateRealtimeDataUpdatedAt = (cfg) => {
 	const validateRealtimeDataUpdatedAt = (val, rtDataUpdatedAt, name = 'realtimeDataUpdatedAt') => {
-		a.ok(Number.isInteger(rtDataUpdatedAt), name + ' must be an integer');
+		a.ok(Number.isInteger(rtDataUpdatedAt), name + ' must be an integer ' + JSON.stringify(val, null, 2));
 		assertValidWhen(rtDataUpdatedAt * 1000, cfg.when, name, 100 * DAY);
 	};
 	return validateRealtimeDataUpdatedAt;
@@ -114,7 +114,7 @@ const createValidateLine = (cfg) => {
 		defaultValidators.line(val, line, name);
 
 		const msg = name + '.fahrtNr must be ';
-		if (line.fahrtNr !== null) {
+		if (line.fahrtNr) {
 			a.strictEqual(typeof line.fahrtNr, 'string', msg + 'a string');
 			a.ok(line.fahrtNr, msg + ' be empty');
 		}

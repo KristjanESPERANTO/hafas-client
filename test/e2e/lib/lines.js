@@ -7,17 +7,19 @@ const testLines = async (cfg) => {
 	} = cfg;
 
 	const res = await fetchLines(query);
+	console.log('*** res', JSON.stringify(res, null, 2));
 	const {
 		lines,
 		realtimeDataUpdatedAt,
 	} = res;
 
-	for (let i = 0; i < res.lines.length; i++) {
-		const l = res.lines[i];
+	for (let i = 0; i < lines.length; i++) {
+		const line = lines[i];
 		const name = `res.lines[${i}]`;
-		validate(t, l, 'line', name);
+		validate(t, line, 'line', name);
 	}
-
+	console.log('*** t', t);
+	console.log('*** realtimeDataUpdatedAt', realtimeDataUpdatedAt);
 	validate(t, realtimeDataUpdatedAt, 'realtimeDataUpdatedAt', 'res.realtimeDataUpdatedAt');
 };
 
