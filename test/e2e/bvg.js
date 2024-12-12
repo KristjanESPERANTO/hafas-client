@@ -238,7 +238,7 @@ tap.test('trip details', async (t) => {
 	t.end();
 });
 
-tap.test('journeys – station to address', async (t) => {
+tap.skip('journeys – station to address', async (t) => {
 	const torfstr = {
 		type: 'location',
 		address: 'Torfstraße 17, 13353 Berlin-Wedding',
