@@ -26,7 +26,10 @@ import {testReachableFrom} from './lib/reachable-from.js';
 import {testRemarks} from './lib/remarks.js';
 import {testLines} from './lib/lines.js';
 
-const T_MOCK = 1731394800 * 1000; // 2024-11-12T08:00:00+01:00
+const dateString = '2025-01-12T08:00:00+01:00';
+const date = new Date(dateString);
+const T_MOCK = date.getTime();
+
 const when = createWhen(bvgProfile.timezone, bvgProfile.locale, T_MOCK);
 
 const {
@@ -238,7 +241,7 @@ tap.test('trip details', async (t) => {
 	t.end();
 });
 
-tap.skip('journeys – station to address', async (t) => {
+tap.test('journeys – station to address', async (t) => {
 	const torfstr = {
 		type: 'location',
 		address: 'Torfstraße 17, 13353 Berlin-Wedding',
@@ -464,8 +467,7 @@ tap.test('remarks', async (t) => {
 	t.end();
 });
 
-// todo: does not work anymore
-tap.skip('lines', async (t) => {
+tap.test('lines', async (t) => {
 	await testLines({
 		test: t,
 		fetchLines: client.lines,
