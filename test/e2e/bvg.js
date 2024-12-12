@@ -2,7 +2,6 @@
 
 import tap from 'tap';
 
-import isRoughlyEqual from 'is-roughly-equal';
 import {DateTime} from 'luxon';
 import flatMap from 'lodash/flatMap.js';
 
