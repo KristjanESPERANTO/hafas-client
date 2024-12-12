@@ -242,7 +242,7 @@ tap.test('trip details', async (t) => {
 tap.test('journeys – station to address', async (t) => {
 	const torfstr = {
 		type: 'location',
-		address: '13353 Berlin-Wedding, Torfstraße 17',
+		address: 'Torfstraße 17, 13353 Berlin-Wedding',
 		latitude: 52.541797,
 		longitude: 13.350042,
 	};
