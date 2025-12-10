@@ -1,3 +1,8 @@
+// Note: All tests in this file are skipped because the SNCB/NMBS HAFAS endpoint
+// has been permanently shut down.
+// API response: "This feature is no longer available. To plan your trip, download the new SNCB app."
+// See https://github.com/public-transport/hafas-client/issues/284
+
 import tap from 'tap';
 
 import {createWhen} from './lib/util.js';
@@ -33,7 +38,7 @@ const gentPaddenhoek = {
 	latitude: 51.051691, longitude: 3.724914,
 };
 
-tap.test('journeys – Gent Sant Pieters to Bruxelles Midi', async (t) => {
+tap.skip('journeys – Gent Sant Pieters to Bruxelles Midi', async (t) => {
 	const res = await client.journeys(gentStPieters, bruxellesMidi, {
 		results: 4,
 		departure: when,
@@ -53,7 +58,7 @@ tap.test('journeys – Gent Sant Pieters to Bruxelles Midi', async (t) => {
 // todo: via works – with detour
 // todo: without detour
 
-tap.test('trip details', async (t) => {
+tap.skip('trip details', async (t) => {
 	const res = await client.journeys(gentStPieters, bruxellesMidi, {
 		results: 1, departure: when,
 	});
@@ -68,7 +73,7 @@ tap.test('trip details', async (t) => {
 	t.end();
 });
 
-tap.test('arrivals at Bruxelles Midi', async (t) => {
+tap.skip('arrivals at Bruxelles Midi', async (t) => {
 	const res = await client.arrivals(bruxellesMidi, {
 		duration: 10, when,
 	});
@@ -84,7 +89,7 @@ tap.test('arrivals at Bruxelles Midi', async (t) => {
 
 // todo: nearby
 
-tap.test('radar', async (t) => {
+tap.skip('radar', async (t) => {
 	const res = await client.radar({
 		north: 51.065,
 		west: 3.688,
@@ -98,7 +103,7 @@ tap.test('radar', async (t) => {
 	t.end();
 });
 
-tap.test('reachableFrom', async (t) => {
+tap.skip('reachableFrom', async (t) => {
 	await testReachableFrom({
 		test: t,
 		reachableFrom: client.reachableFrom,
