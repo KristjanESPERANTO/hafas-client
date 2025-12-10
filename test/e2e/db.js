@@ -1,3 +1,7 @@
+// Note: All tests in this file are skipped because the DB HAFAS endpoint
+// has been permanently shut down.
+// See https://github.com/public-transport/hafas-client/issues/331
+
 import tap from 'tap';
 import isRoughlyEqual from 'is-roughly-equal';
 import maxBy from 'lodash/maxBy.js';
@@ -109,7 +113,7 @@ const potsdamHbf = '8012666';
 const berlinSüdkreuz = '8011113';
 const kölnHbf = '8000207';
 
-tap.test('journeys – Berlin Schwedter Str. to München Hbf', async (t) => {
+tap.skip('journeys – Berlin Schwedter Str. to München Hbf', async (t) => {
 	const res = await client.journeys(blnSchwedterStr, münchenHbf, {
 		results: 4,
 		departure: when,
@@ -165,7 +169,7 @@ tap.skip('refreshJourney – valid tickets', async (t) => {
 
 // todo: journeys, only one product
 
-tap.test('journeys – fails with no product', async (t) => {
+tap.skip('journeys – fails with no product', async (t) => {
 	await journeysFailsWithNoProduct({
 		test: t,
 		fetchJourneys: client.journeys,
@@ -177,7 +181,7 @@ tap.test('journeys – fails with no product', async (t) => {
 	t.end();
 });
 
-tap.test('Berlin Schwedter Str. to Torfstraße 17', async (t) => {
+tap.skip('Berlin Schwedter Str. to Torfstraße 17', async (t) => {
 	const torfstr = {
 		type: 'location',
 		address: 'Torfstraße 17',
@@ -199,7 +203,7 @@ tap.test('Berlin Schwedter Str. to Torfstraße 17', async (t) => {
 	t.end();
 });
 
-tap.test('Berlin Schwedter Str. to ATZE Musiktheater', async (t) => {
+tap.skip('Berlin Schwedter Str. to ATZE Musiktheater', async (t) => {
 	const atze = {
 		type: 'location',
 		id: '991598902',
@@ -223,7 +227,7 @@ tap.test('Berlin Schwedter Str. to ATZE Musiktheater', async (t) => {
 	t.end();
 });
 
-tap.test('journeys: via works – with detour', async (t) => {
+tap.skip('journeys: via works – with detour', async (t) => {
 	// Going from Westhafen to Wedding via Württembergalle without detour
 	// is currently impossible. We check if the routing engine computes a detour.
 	const res = await client.journeys(westhafen, wedding, {
@@ -245,7 +249,7 @@ tap.test('journeys: via works – with detour', async (t) => {
 // todo: walkingSpeed "Berlin - Charlottenburg, Hallerstraße" -> jungfernheide
 // todo: without detour
 
-tap.test('journeys – all routing modes work', async (t) => {
+tap.skip('journeys – all routing modes work', async (t) => {
 	for (const mode in routingModes) {
 		await client.journeys(berlinHbf, münchenHbf, {
 			results: 1,
@@ -272,7 +276,7 @@ tap.skip('earlier/later journeys, Jungfernheide -> München Hbf', async (t) => {
 });
 
 if (!process.env.VCR_MODE) {
-	tap.test('journeys – leg cycle & alternatives', async (t) => {
+	tap.skip('journeys – leg cycle & alternatives', async (t) => {
 		await testLegCycleAlternatives({
 			test: t,
 			fetchJourneys: client.journeys,
@@ -284,7 +288,7 @@ if (!process.env.VCR_MODE) {
 	});
 }
 
-tap.test('refreshJourney', async (t) => {
+tap.skip('refreshJourney', async (t) => {
 	const T_MOCK = 1710831600 * 1000; // 2024-03-19T08:00:00+01:00
 	const when = createWhen(dbProfile.timezone, dbProfile.locale, T_MOCK);
 	const validate = createValidate({...cfg, when});
@@ -390,7 +394,7 @@ tap.skip('journeysFromTrip – U Mehringdamm to U Naturkundemuseum, reroute to S
 	}
 });
 
-tap.test('trip details', async (t) => {
+tap.skip('trip details', async (t) => {
 	const res = await client.journeys(berlinHbf, münchenHbf, {
 		results: 1, departure: when,
 	});
@@ -418,7 +422,7 @@ tap.test('trip details', async (t) => {
 	t.end();
 });
 
-tap.test('departures at Berlin Schwedter Str.', async (t) => {
+tap.skip('departures at Berlin Schwedter Str.', async (t) => {
 	const res = await client.departures(blnSchwedterStr, {
 		duration: 5, when,
 	});
@@ -432,7 +436,7 @@ tap.test('departures at Berlin Schwedter Str.', async (t) => {
 	t.end();
 });
 
-tap.test('departures with station object', async (t) => {
+tap.skip('departures with station object', async (t) => {
 	const res = await client.departures({
 		type: 'station',
 		id: jungfernheide,
@@ -448,7 +452,7 @@ tap.test('departures with station object', async (t) => {
 	t.end();
 });
 
-tap.test('departures at Berlin Hbf in direction of Berlin Ostbahnhof', async (t) => {
+tap.skip('departures at Berlin Hbf in direction of Berlin Ostbahnhof', async (t) => {
 	await testDeparturesInDirection({
 		test: t,
 		fetchDepartures: client.departures,
@@ -461,7 +465,7 @@ tap.test('departures at Berlin Hbf in direction of Berlin Ostbahnhof', async (t)
 	t.end();
 });
 
-tap.test('arrivals at Berlin Schwedter Str.', async (t) => {
+tap.skip('arrivals at Berlin Schwedter Str.', async (t) => {
 	const res = await client.arrivals(blnSchwedterStr, {
 		duration: 5, when,
 	});
@@ -475,7 +479,7 @@ tap.test('arrivals at Berlin Schwedter Str.', async (t) => {
 	t.end();
 });
 
-tap.test('nearby Berlin Jungfernheide', async (t) => {
+tap.skip('nearby Berlin Jungfernheide', async (t) => {
 	const nearby = await client.nearby({
 		type: 'location',
 		latitude: 52.530273,
@@ -499,7 +503,7 @@ tap.test('nearby Berlin Jungfernheide', async (t) => {
 	t.end();
 });
 
-tap.test('locations named Jungfernheide', async (t) => {
+tap.skip('locations named Jungfernheide', async (t) => {
 	const locations = await client.locations('Jungfernheide', {
 		results: 10,
 	});
@@ -513,7 +517,7 @@ tap.test('locations named Jungfernheide', async (t) => {
 	t.end();
 });
 
-tap.test('stop', async (t) => {
+tap.skip('stop', async (t) => {
 	const s = await client.stop(regensburgHbf);
 
 	validate(t, s, ['stop', 'station'], 'stop');
@@ -522,7 +526,7 @@ tap.test('stop', async (t) => {
 	t.end();
 });
 
-tap.test('line with additionalName', async (t) => {
+tap.skip('line with additionalName', async (t) => {
 	const {departures} = await client.departures(potsdamHbf, {
 		when,
 		duration: 12 * 60, // 12 minutes
@@ -532,7 +536,7 @@ tap.test('line with additionalName', async (t) => {
 	t.end();
 });
 
-tap.test('radar', async (t) => {
+tap.skip('radar', async (t) => {
 	const res = await client.radar({
 		north: 52.52411,
 		west: 13.41002,
@@ -546,7 +550,7 @@ tap.test('radar', async (t) => {
 	t.end();
 });
 
-tap.test('radar works across the antimeridian', async (t) => {
+tap.skip('radar works across the antimeridian', async (t) => {
 	await client.radar({
 		north: -8,
 		west: 179,
@@ -559,7 +563,7 @@ tap.test('radar works across the antimeridian', async (t) => {
 	t.end();
 });
 
-tap.test('reachableFrom', {timeout: 20 * 1000}, async (t) => {
+tap.skip('reachableFrom', {timeout: 20 * 1000}, async (t) => {
 	const torfstr17 = {
 		type: 'location',
 		address: 'Torfstraße 17',
@@ -578,7 +582,7 @@ tap.test('reachableFrom', {timeout: 20 * 1000}, async (t) => {
 	t.end();
 });
 
-tap.test('serverInfo works', async (t) => {
+tap.skip('serverInfo works', async (t) => {
 	await testServerInfo({
 		test: t,
 		fetchServerInfo: client.serverInfo,
